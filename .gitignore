@@ -1,0 +1,20 @@
+# The shared library is built from the QIC project next door and is a build
+# artefact there; this app loads whichever copy it finds, so a stale one
+# committed here would silently win over a freshly built one.
+libqic.dll
+libqic.dll.a
+libqic.so
+libqic.dylib
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Manim's output, if it is ever run by hand from this directory rather than
+# through the app, which gives it a scratch directory of its own.
+media/
+qic_config.json
+
+# Virtual environments
+.venv/
+venv/

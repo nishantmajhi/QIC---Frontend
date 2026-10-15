@@ -1,0 +1,13 @@
+# Manim's scene API moves between minor versions and factorize.py is written
+# against one of them, so the range is closed at the top. An open-ended
+# ">=0.18.0" meant a fresh install could pull a version whose API had moved
+# and fail in the renderer, where the user sees a traceback rather than a
+# message.
+#
+# Tested here with 0.18.1 on Python 3.12: a real render of 2x^2+7x+3 at -ql
+# produces a 32-second 480p video.
+#
+# Manim also needs FFmpeg on PATH, which pip cannot install. The app checks
+# for Manim before it shells out and shows the factorization as text when it
+# is missing, so the project is usable without either.
+manim>=0.18,<0.19

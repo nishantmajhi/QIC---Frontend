@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # tests/baseline.py reads the original modules from history.
+          fetch-depth: 0
+      # test_render.py renders a real video, which needs FFmpeg, and Manim
+      # builds against Cairo and Pango. Without them it is skipped.
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python tests/run.py
